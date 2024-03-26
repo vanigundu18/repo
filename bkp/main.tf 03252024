@@ -1,0 +1,57 @@
+# Bucket to store website
+
+resource "google_storage_bucket" "data" {
+  name          = "sample-trees-data"
+  location      = "us-central1"
+  storage_class = "regional"
+  force_destroy = true
+}
+
+# create a folder in the bucket
+
+resource "google_storage_bucket_object" "temp_folder" {
+  name    = "temp/" # folder name should end with '/'
+  content = " "     # content is ignored but should be non-empty
+  bucket  = google_storage_bucket.data.name
+}
+
+# Upload the sample data file to the bucket
+
+resource "google_storage_bucket_object" "src_csv" {
+  name   = "treesampledata.json"
+  source = "../data/treesampledata.json"
+  bucket = google_storage_bucket.data.name
+}
+
+# Upload the schema file to the bucket
+
+resource "google_storage_bucket_object" "src_csv1" {
+  name   = "schema.json"
+  source = "../data/schema.json"
+  bucket = google_storage_bucket.data.name
+}
+
+resource "google_bigquery_dataset" "default" {
+  dataset_id    = "trees_dataset"
+  location      = "us-central1"
+  friendly_name = "sample"
+
+  labels = {
+    env = "dev"
+  }
+}
+
+resource "google_bigquery_table" "table1" {
+  dataset_id          = google_bigquery_dataset.default.dataset_id
+  table_id            = "treesdata"
+  deletion_protection = false
+  labels = {
+    env = "dev"
+  }
+  external_data_configuration {
+    autodetect    = true
+    source_uris   = ["gs://${google_storage_bucket.data.name}/${google_storage_bucket_object.src_csv.name}"]
+    source_format = "NEWLINE_DELIMITED_JSON"
+  }
+  depends_on = [google_storage_bucket_object.src_csv]
+}

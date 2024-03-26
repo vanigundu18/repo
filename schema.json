@@ -1,0 +1,76 @@
+{
+    "BigQuery Schema": [
+        {
+            "name": "tree_id",
+            "type": "INT64"
+        },
+        {
+            "name": "legal_status",
+            "type": "STRING"
+        },
+        {
+            "name": "species",
+            "type": "STRING"
+        },
+        {
+            "name": "address",
+            "type": "STRING"
+        },
+        {
+            "name": "site_order",
+            "type": "INT64"
+        },
+        {
+            "name": "site_info",
+            "type": "STRING"
+        },
+        {
+            "name": "plant_type",
+            "type": "STRING"
+        },
+        {
+            "name": "care_taker",
+            "type": "STRING"
+        },
+        {
+            "name": "care_assistant",
+            "type": "STRING"
+        },
+        {
+            "name": "plant_date",
+            "type": "TIMESTAMP"
+        },
+        {
+            "name": "dbh",
+            "type": "STRING"
+        },
+        {
+            "name": "plot_size",
+            "type": "STRING"
+        },
+        {
+            "name": "permit_notes",
+            "type": "STRING"
+        },
+        {
+            "name": "x_coordinate",
+            "type": "FLOAT"
+        },
+        {
+            "name": "y_coordinate",
+            "type": "FLOAT"
+        },
+        {
+            "name": "latitude",
+            "type": "FLOAT"
+        },
+        {
+            "name": "longitude",
+            "type": "FLOAT"
+        },
+        {
+            "name": "location",
+            "type": "STRING"
+        }
+    ]
+}
